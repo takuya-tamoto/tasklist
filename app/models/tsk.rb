@@ -1,0 +1,2 @@
+class Tsk < ApplicationRecord
+end
