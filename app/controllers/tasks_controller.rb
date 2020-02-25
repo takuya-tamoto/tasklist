@@ -22,7 +22,8 @@ class TasksController < ApplicationController
       flash[:success] = 'タスクが作成されました。'
       redirect_to @task
     else
-      flash.now[:dabger] = 'タスクが作成されません。'
+      flash.now[:danger] = 'タスクが作成されません。'
+      render :new
     end
   end
   
