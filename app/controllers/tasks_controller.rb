@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
   
   #同じものをまとめる
   
@@ -25,7 +25,6 @@ class TasksController < ApplicationController
       flash[:success] = 'タスクが作成されました。'
       redirect_to root_url
     else
-      @task = current_user.tasks.order(id: :desc).page(params[:page])
       flash.now[:danger] = 'タスクが作成されません。'
       render :new
     end
@@ -38,13 +37,13 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
 
-  if @task.update(task_params)
+    if @task.update(task_params)
     flash[:success] = 'タスクが編集されました'
     redirect_to @task
-  else
+    else
     flash.now[:danger] = 'タスクが編集されませんでした'
     render :new
-  end
+    end
   end
   
   def destroy
